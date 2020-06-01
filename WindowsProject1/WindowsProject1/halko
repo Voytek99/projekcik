@@ -1,0 +1,231 @@
+#include <windows.h>
+#include <objidl.h>
+#include <gdiplus.h>
+using namespace Gdiplus;
+#pragma comment (lib,"Gdiplus.lib")
+
+
+#define ID_BUTTON1				200
+#define ID_BUTTON2				201
+#define ID_BUTTON3				202
+#define ID_BUTTON4				203
+VOID OnPaint(HDC hdc)
+{
+	Graphics graphics(hdc);
+	Pen      pen(Color(255, 0, 0, 0), 10);
+	graphics.DrawLine(&pen, 0, 180, 200, 180);
+	graphics.DrawLine(&pen, 0, 330, 200, 330);
+	graphics.DrawLine(&pen, 0, 480, 200, 480);
+	graphics.DrawLine(&pen, 0, 630, 200, 630 );
+	graphics.DrawRectangle(&pen, 210, 10, 170, 700);
+	graphics.DrawRectangle(&pen, 230, 30, 130, 150);
+	
+
+}
+VOID Paint1(HDC hdc)
+{
+	Graphics graphics(hdc);
+	Pen      pen(Color(255, 0, 0, 0), 10);
+	graphics.DrawRectangle(&pen, 400, 30, 130, 150);
+}
+VOID Paint2(HDC hdc)
+{
+	Graphics graphics(hdc);
+	Pen      pen(Color(255, 0, 0, 0), 10);
+	graphics.DrawRectangle(&pen, 450, 30, 130, 150);
+}
+VOID Paint3(HDC hdc)
+{
+	Graphics graphics(hdc);
+	Pen      pen(Color(255, 0, 0, 0), 10);
+	graphics.DrawRectangle(&pen, 600, 30, 130, 150);
+}
+VOID Paint4(HDC hdc)
+{
+	Graphics graphics(hdc);
+	Pen      pen(Color(255, 0, 0, 0), 10);
+	graphics.DrawRectangle(&pen, 700, 30, 130, 150);
+}
+
+
+
+LRESULT CALLBACK WndProc(HWND, UINT, WPARAM, LPARAM);
+
+INT WINAPI WinMain(HINSTANCE hInstance, HINSTANCE, PSTR, INT iCmdShow)
+{
+	
+	HWND                hWnd;
+	MSG                 msg;
+	WNDCLASS            wndClass;
+	GdiplusStartupInput gdiplusStartupInput;
+	ULONG_PTR           gdiplusToken;
+
+
+
+	// Initialize GDI+.
+	GdiplusStartup(&gdiplusToken, &gdiplusStartupInput, NULL);
+
+	wndClass.style = CS_HREDRAW | CS_VREDRAW;
+	wndClass.lpfnWndProc = WndProc;
+	wndClass.cbClsExtra = 0;
+	wndClass.cbWndExtra = 0;
+	wndClass.hInstance = hInstance;
+	wndClass.hIcon = LoadIcon(NULL, IDI_APPLICATION);
+	wndClass.hCursor = LoadCursor(NULL, IDC_ARROW);
+	wndClass.hbrBackground = (HBRUSH)GetStockObject(WHITE_BRUSH);
+	wndClass.lpszMenuName = NULL;
+	wndClass.lpszClassName = TEXT("GettingStarted");
+
+	RegisterClass(&wndClass);
+
+	hWnd = CreateWindow(
+		TEXT("GettingStarted"),   // window class name
+		TEXT("WINDA"),  // window caption
+		WS_OVERLAPPEDWINDOW,      // window style
+		CW_USEDEFAULT,            // initial x position
+		CW_USEDEFAULT,            // initial y position
+		CW_USEDEFAULT,            // initial x size
+		CW_USEDEFAULT,            // initial y size
+		NULL,                     // parent window handle
+		NULL,                     // window menu handle
+		hInstance,                // program instance handle
+		NULL);                    // creation parameters
+
+	HWND hwndButton1 = CreateWindow(
+		L"BUTTON",  // Predefined class; Unicode assumed 
+		L"1",      // Button text 
+		WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,  // Styles 
+		10,         // x position 
+		550,         // y position 
+		50,        // Button width
+		50,        // Button height
+		hWnd,     // Parent window
+		(HMENU)ID_BUTTON1,       // No menu.
+		(HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE),
+		NULL);      // Pointer not needed.
+
+	HWND hwndTextButton1 = CreateWindowEx(WS_EX_CLIENTEDGE, TEXT("Edit"), TEXT("0"),
+		WS_CHILD | WS_VISIBLE, 100, 550, 40,
+		20, hWnd, NULL, NULL, NULL);
+
+
+	HWND hwndButton2 = CreateWindow(
+		L"BUTTON",  // Predefined class; Unicode assumed 
+		L"2",      // Button text 
+		WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,  // Styles 
+		10,         // x position 
+		400,         // y position 
+		50,        // Button width
+		50,        // Button height
+		hWnd,     // Parent window
+		(HMENU)ID_BUTTON2,       // No menu.
+		(HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE),
+		NULL);      // Pointer not needed.
+
+
+	HWND hwndTextButton2 = CreateWindowEx(WS_EX_CLIENTEDGE, TEXT("Edit"), TEXT("0"),
+		WS_CHILD | WS_VISIBLE, 100, 400, 40,
+		20, hWnd, NULL, NULL, NULL);
+
+	HWND hwndButton3 = CreateWindow(
+		L"BUTTON",  // Predefined class; Unicode assumed 
+		L"3",      // Button text 
+		WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,  // Styles 
+		10,         // x position 
+		250,         // y position 
+		50,        // Button width
+		50,        // Button height
+		hWnd,     // Parent window
+		(HMENU)ID_BUTTON3,       // No menu.
+		(HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE),
+		NULL);      // Pointer not needed.
+
+
+	HWND hwndTextButton3 = CreateWindowEx(WS_EX_CLIENTEDGE, TEXT("Edit"), TEXT("0"),
+		WS_CHILD | WS_VISIBLE, 100, 250, 40,
+		20, hWnd, NULL, NULL, NULL);
+
+	HWND hwndButton4 = CreateWindow(
+		L"BUTTON",  // Predefined class; Unicode assumed 
+		L"4",      // Button text 
+		WS_TABSTOP | WS_VISIBLE | WS_CHILD | BS_DEFPUSHBUTTON,  // Styles 
+		10,         // x position 
+		100,         // y position 
+		50,        // Button width
+		50,        // Button height
+		hWnd,     // Parent window
+		(HMENU)ID_BUTTON4,       // No menu.
+		(HINSTANCE)GetWindowLongPtr(hWnd, GWLP_HINSTANCE),
+		NULL);      // Pointer not needed.
+
+
+	HWND hwndTextButton4 = CreateWindowEx(WS_EX_CLIENTEDGE, TEXT("Edit"), TEXT("0"),
+		WS_CHILD | WS_VISIBLE, 100, 100, 40,
+		20, hWnd, NULL, NULL, NULL);
+
+	ShowWindow(hWnd, iCmdShow);
+	UpdateWindow(hWnd);
+
+	while (GetMessage(&msg, NULL, 0, 0))
+	{
+		TranslateMessage(&msg);
+		DispatchMessage(&msg);
+	}
+
+	GdiplusShutdown(gdiplusToken);
+	return msg.wParam;
+}  // WinMain
+
+LRESULT CALLBACK WndProc(HWND hWnd, UINT message, WPARAM wParam, LPARAM lParam)
+{
+	int wmId, wmEvent;
+	PAINTSTRUCT ps;
+	HWND editControl1;
+	HDC hdc;
+
+
+	switch (message)
+	{
+	case WM_COMMAND:
+		wmId = LOWORD(wParam);
+		wmEvent = HIWORD(wParam);
+
+		// MENU & BUTTON messages
+		// Parse the menu selections:
+		switch (wmId)
+		{
+		case ID_BUTTON1: //tutaj na razie próbuje załaczyc rysowanie poszczegolnych kwadratow od 1-4 (gdy to sie uda to mozna podlaczy
+			//kawadrat symbolizuje 1 czlowieka jak to sie uda bedzie mozna wtedy zajac sie sciaganiem z pola tekstowego
+			//mozesz sprobowac zajac sie ruchem windy
+
+			break;
+		case ID_BUTTON2:
+
+			break;
+		case ID_BUTTON3:
+
+			break;
+		case ID_BUTTON4:
+			break;
+
+		default:
+			return DefWindowProc(hWnd, message, wParam, lParam);
+		}
+		break;
+	case WM_PAINT:
+		hdc = BeginPaint(hWnd, &ps);
+		// TODO: Add any drawing code here (not depend on timer, buttons)
+		//MyOnPaint(hdc);
+		EndPaint(hWnd, &ps);
+		//hdc = GetWindowDC(hWnd);
+		//MyOnPaint(hdc);
+		break;
+	case WM_DESTROY:
+		PostQuitMessage(0);
+		break;
+	case WM_ERASEBKGND:
+		// Don't paint background if you are blitting from off screen surface.
+		return 1;
+		break;
+	}
+}
